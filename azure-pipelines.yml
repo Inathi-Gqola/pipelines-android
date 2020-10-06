@@ -23,26 +23,5 @@ steps:
     tasks: 'assembleDebug test'
   displayName: gradlew assembleDebug test
 
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk' 
-    apksign: true
-    apksignerKeystoreFile: 'production.keystore'
-    apksignerKeystorePassword: $(keystore.password)
-    apksignerKeystoreAlias: $(key.alias)
-    apksignerKeyPassword: $(key.password)
-    apksignerArguments: --out $(outputDirectory)/sims.release.apk
-    zipalign: true
-- task: CopyFiles@2
-  inputs:
-   SourceFolder: $(Build.SourcesDirectory)
-   contents: '**/*.release.apk'
-   targetFolder: '$(build.artifactStagingDirectory)'
-   overWrite: true
 
-- task: PublishBuildArtifacts@1
-  inputs:
-   pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/release/'
-   artifactName: 'apks'
-   publishLocation: 'container'
 
